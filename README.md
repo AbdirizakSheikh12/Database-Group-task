@@ -1,3 +1,10 @@
+# Travel Jabs Frontend
+
+Frontend for the Travel Jabs appointment management system (React).
+
+## Week 1 User Story
+As a patient, I want to access a homepage so that I can begin using the Travel Jabs system.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +75,22 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# Travel Jabs Frontend
+
+This repository contains the frontend implementation of the Travel Jabs web application.
+
+## Project Overview
+Travel Jabs is a centralized appointment management system designed for a private healthcare provider offering travel immunisation services across multiple clinics.
+
+## Technologies Used
+- React JS
+- JavaScript
+- HTML/CSS
+
+## User Story Implemented (Week 1)
+As a patient, I want to access a homepage so that I can begin using the Travel Jabs system.
+
+## Status
+This project is under active development following Agile sprint-based methodology.
+>>>>>>> 09251c3c1b3833928529dac8baf66b7e1d3933c0
