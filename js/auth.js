@@ -2,7 +2,7 @@ const testAccounts = {
     Manager: { email: 'manager@traveljabs.com', password: 'manager123', id: 1, firstname: 'System', lastname: 'Manager', role: 'Manager' },
     Clinician: { email: 'clinician@traveljabs.com', password: 'clinician123', id: 2, firstname: 'Clinic', lastname: 'Nurse', role: 'Clinician' },
     Patient: { email: 'patient@traveljabs.com', password: 'patient123', id: 3, firstname: 'Regular', lastname: 'Patient', role: 'Patient' }
-};
+}; // Sign in using these emails and passwords
 
 function getAccounts() {
     const local = localStorage.getItem('registeredAccounts');
