@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinician Dashboard - Travel Jabs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 2px solid #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        .nav-bar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #2a9d8f;
+        }
+
+        .tabs button {
+            margin-right: 10px;
+            background-color: #e9ecef;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tabs button.active {
+            background-color: #2a9d8f;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            border: 1px solid #ddd;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .badge-grey {
+            background-color: #6c757d;
+        }
+
+        .badge-orange {
+            background-color: #fd7e14;
+        }
+
+        .badge-green {
+            background-color: #28a745;
+        }
+
+        .btn-action {
+            margin-right: 5px;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-progress {
+            background-color: #17a2b8;
+        }
+
+        .btn-progress:hover {
+            background-color: #138496;
+        }
+
+        .btn-complete {
+            background-color: #28a745;
+        }
+
+        .btn-complete:hover {
+            background-color: #218838;
+        }
+
+        .form-section {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <h1>Travel Jabs - Clinician</h1>
+        <div class="tabs">
+            <button onclick="switchTab('appointments')" id="tab-btn-appointments" class="active">My
+                Appointments</button>
+            <button onclick="switchTab('schedule')" id="tab-btn-schedule">My Schedule & Slots</button>
+            <button onclick="switchTab('outcome')" id="tab-btn-outcome">Record Outcome</button>
+        </div>
+        <button onclick="logout()" class="btn danger">Logout</button>
+    </div>
+
+    <div class="container">
+        <!-- TAB 1: MY APPOINTMENTS -->
+        <div id="tab-appointments" class="tab-content active">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>My Appointments</h2>
+            </div>
+            <div id="appointmentsList">Loading appointments...</div>
+        </div>
+
+        <!-- NEW TAB: MY SCHEDULE -->
+        <div id="tab-schedule" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>My Booked & Available Slots</h2>
+            </div>
+            <div class="form-group" style="max-width: 300px;">
+                <label>Select Date</label>
+                <input type="date" id="clinicianScheduleDate" onchange="loadMySchedule()" class="search-box">
+            </div>
+            <div id="clinicianScheduleGrid"
+                style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px;">
+                <p>Select a date to view your schedule.</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: RECORD OUTCOME -->
+        <div id="tab-outcome" class="tab-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Record Vaccination Outcome</h2>
+            </div>
+
+            <div class="form-section">
+                <form id="outcomeForm">
+                    <div id="outcomeSuccess"
+                        style="color: #28a745; font-weight: bold; margin-bottom: 15px; display: none;">Outcome
+                        successfully recorded!</div>
+
+                    <div class="form-group">
+                        <label>Appointment ID</label>
+                        <select id="VaccinationAppointmentID" required>
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Vaccine ID</label>
+                        <select id="VaccinationVaccineID" required>
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-bottom: 5px; display: block;">Vaccination delivered?</label>
+                        <div style="margin-bottom: 10px;">
+                            <input type="radio" id="deliveredYes" name="VaccinationOutcomeID" value="1" required>
+                            <label for="deliveredYes" style="display: inline; margin-right: 15px;">Yes</label>
+
+                            <input type="radio" id="deliveredNo" name="VaccinationOutcomeID" value="2" required>
+                            <label for="deliveredNo" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Outcome (Notes)</label>
+                        <textarea id="VaccinationOutcome" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="background-color: #2a9d8f; color: white;">Save
+                        Record</button>
+                </form>
+            </div>
+
+            <h2>My Recorded Vaccinations</h2>
+            <div id="vaccinationsList">Loading vaccinations...</div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/clinician.js"></script>
+</body>
+
+</html>

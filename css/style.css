@@ -1,0 +1,385 @@
+* {
+    box-sizing: border-box;
+    color: #333;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* LOGIN PAGE */
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2a9d8f 0%, #264653 100%);
+}
+
+.auth-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-logo {
+    font-size: 3rem;
+    margin-bottom: -10px;
+}
+
+.auth-header h1 {
+    font-size: 1.8rem;
+    color: #264653;
+    margin: 10px 0 5px 0;
+    font-weight: 800;
+}
+
+.auth-header p {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.auth-form label {
+    font-size: 0.85rem;
+    color: #495057;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.auth-form input,
+.auth-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+    outline: none;
+    border-color: #2a9d8f;
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+}
+
+.auth-form select option,
+form select option,
+.data-form select option,
+select {
+    color: #333;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .half {
+    flex: 1;
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.1s, background-color 0.3s;
+    background-color: #2a9d8f;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.auth-submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    background-color: #1f7a6f;
+}
+
+.auth-submit-btn:active {
+    transform: translateY(1px);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.auth-footer a {
+    color: #2a9d8f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.auth-footer a:hover {
+    color: #e9c46a;
+}
+
+.register-title {
+    text-align: center;
+    color: #2a9d8f;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+optional {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.error-msg {
+    color: #e76f51;
+    background: #fadbd8;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* NAVIGATION BAR */
+.top-nav {
+    background-color: #2a9d8f;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav .tabs button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+}
+
+.top-nav .tabs button.active {
+    border-bottom: 2px solid white;
+}
+
+/* MAIN CONTENT */
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* TABLES */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #2a9d8f;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-primary {
+    background-color: #2a9d8f;
+    color: white;
+}
+
+.btn-edit {
+    background-color: #e9c46a;
+    color: #333;
+}
+
+.btn-delete,
+.btn-logout,
+.btn-danger {
+    background-color: #e76f51;
+    color: white;
+}
+
+.btn-action,
+.btn-progress {
+    background-color: #457b9d;
+    color: white;
+}
+
+.btn-complete,
+.btn-success {
+    background-color: #2a9d8f;
+    color: white;
+}
+
+/* FORMS */
+form label,
+.data-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input,
+form select,
+form textarea,
+.data-form input,
+.data-form select,
+.data-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.form-container,
+.data-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* CLINIC CARDS (patient page) */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.clinic-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.clinic-card h3 {
+    font-weight: bold;
+    color: #2a9d8f;
+    margin-top: 0;
+}
+
+/* STATUS BADGES */
+.status-badge,
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.status-pending,
+.badge-pending,
+.badge-grey {
+    background-color: #ccc;
+    color: #333;
+}
+
+.status-inprogress,
+.badge-arrived,
+.badge-orange {
+    background-color: #f4a261;
+    color: white;
+}
+
+.status-completed,
+.badge-completed,
+.badge-green {
+    background-color: #2a9d8f;
+    color: white;
+}
+
+/* SUCCESS/ERROR MESSAGES */
+.success {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

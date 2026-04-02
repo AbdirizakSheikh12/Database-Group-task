@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Jabs - Patient</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f4f9;
+        }
+
+        .top-nav {
+            background: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-nav h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tabs button {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .tabs button.active {
+            background: #007bff;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-action {
+            padding: 4px 8px;
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Find Clinic */
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .badge-pending {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .badge-arrived {
+            background: #17a2b8;
+            color: #fff;
+        }
+
+        .badge-completed {
+            background: #28a745;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-nav">
+        <h1>Travel Jabs - Patient</h1>
+        <div class="tabs">
+            <button id="tab-btn-find-clinic" class="active" onclick="switchTab('find-clinic')">Find a Clinic</button>
+            <button id="tab-btn-my-appointments" onclick="switchTab('my-appointments')">My Appointments</button>
+            <button id="tab-btn-book-appointment" onclick="switchTab('book-appointment')">Book Appointment</button>
+        </div>
+        <div class="user-actions">
+            <span id="userNameDisplay"></span>
+            <button class="btn btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- TAB 1: FIND A CLINIC -->
+        <section id="tab-find-clinic" class="tab-content active">
+            <h2>Find a Clinic</h2>
+            <input type="text" id="clinicSearch" class="search-box" placeholder="Search clinics by name or postcode..."
+                onkeyup="filterClinics()">
+            <div id="clinicsList" class="cards">
+                <!-- Clinic cards injected here -->
+            </div>
+        </section>
+
+        <!-- TAB 2: MY APPOINTMENTS -->
+        <section id="tab-my-appointments" class="tab-content">
+            <h2>My Appointments</h2>
+            <div id="appointmentsList">
+                <!-- Table injected here -->
+            </div>
+        </section>
+
+        <!-- TAB 3: BOOK APPOINTMENT -->
+        <section id="tab-book-appointment" class="tab-content">
+            <h2>Book Appointment</h2>
+            <div id="bookingSuccessMessage"
+                style="display: none; background: #d4edda; color: #155724; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                Appointment booked successfully!
+            </div>
+            <form id="bookAppointmentForm">
+                <div class="form-group">
+                    <label for="bookingClinic">Select Clinic</label>
+                    <select id="bookingClinic" required onchange="loadCliniciansForClinic()">
+                        <option value="">-- Loading Clinics --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingClinician">Select Clinician</label>
+                    <select id="bookingClinician" required disabled onchange="loadAvailableSlots()">
+                        <option value="">-- Select Clinic First --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingDate">Date</label>
+                    <input type="date" id="bookingDate" required onchange="loadAvailableSlots()">
+                </div>
+
+                <div class="form-group">
+                    <label>Available Time Slots</label>
+                    <div id="timeSlotsContainer" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                        <span style="color: #666; font-size: 0.9rem;">Select clinician and date to view slots</span>
+                    </div>
+                    <input type="hidden" id="bookingDateTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookingNotes">Booking Notes</label>
+                    <textarea id="bookingNotes" rows="3" placeholder="Any special requirements..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Book Appointment</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/patient.js"></script>
+</body>
+
+</html>
